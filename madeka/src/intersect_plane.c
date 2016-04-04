@@ -1,0 +1,17 @@
+#include "RT.h"
+
+float	intersect_plane(t_ray *ray, t_plane *plane)
+{
+	float	t;
+	t_vec3	diff;
+	t_vec3	d;
+
+	d.x = ray->d.x;
+	d.y = ray->d.y;
+	d.z = ray->d.z;
+	diff.x = plane->p.x - ray->o.x;
+	diff.y = plane->p.y - ray->o.y;
+	diff.z = plane->p.z - ray->o.z;
+	t = dot_product(&plane->n, &diff) / dot_product(&plane->n, &d);
+	return (t);
+}

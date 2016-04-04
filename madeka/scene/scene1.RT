@@ -1,0 +1,26 @@
+camera
+{
+	position : x y z
+	direction : x y z
+}
+scene
+{
+	circle
+	{
+		position : x y z
+		radius : r
+		color : r g b
+	}
+	plane
+	{
+		position : x y z
+		normal : x y z
+		color : r g b
+	}
+	cylinder
+	{
+		axis : x y z
+		radius : r
+
+	}
+}

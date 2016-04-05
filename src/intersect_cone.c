@@ -1,4 +1,5 @@
 #include "RT.h"
+#include <stdio.h>
 
 float	intersect_cone(t_ray *ray, t_cone *cone)
 {

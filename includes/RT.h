@@ -65,6 +65,12 @@ typedef struct	s_cone
 	float		r;
 }				t_cone;
 
+typedef struct	s_light
+{
+	t_coord		center;
+	int			power;
+}				t_light;
+
 typedef struct			s_scene
 {
 	enum	e_object	type;
@@ -83,6 +89,7 @@ void			init_env(t_env *env);
 void			init_img(t_env *env);
 void			init_object(t_scene **scene, enum e_object type);
 void			init_ray(t_ray *ray, int x, int y);
+void			init_shadow_ray(t_ray *ray, t_coord light, t_coord point);
 void			init_scene(t_scene **scene);
 void			init_plane(t_scene **scene, t_coord p, t_vec3 n, unsigned int color);
 void			init_circle(t_scene **scene, t_coord center, unsigned int color, float radius);
@@ -92,9 +99,10 @@ void			init_vec3(t_vec3 *v, float x, float y, float z);
 float			intersect_circle(t_ray *ray, t_circle *circle);
 float			intersect_cylinder(t_ray *ray, t_cylinder *cylinder);
 float			intersect_cone(t_ray *ray, t_cone *cone);
-t_scene			*intersect_object(t_ray *ray, t_scene *scene);
+t_scene			*intersect_object(t_ray *ray, t_scene *scene, t_coord *point);
 float			intersect_plane(t_ray *ray, t_plane *plane);
 int				intersect_shadow(float t, t_scene *scene, t_ray *ray);
+int				intersect_light(t_coord point, t_ray *ray, t_scene *obj, t_light light);
 float			intersect_point(float a, float b, float delta);
 void			normalize(t_vec3 *a);
 void			scan_scene(t_env *env, t_scene *scene);

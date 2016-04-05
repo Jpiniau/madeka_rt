@@ -14,6 +14,7 @@ SRC_FILE = cos2.c\
 		   init_img.c\
 		   init_plane.c\
 		   init_ray.c\
+		   init_shadow_ray.c\
 		   init_scene.c\
 		   init_vec3.c\
 		   intersect_circle.c\
@@ -23,6 +24,7 @@ SRC_FILE = cos2.c\
 		   intersect_plane.c\
 		   intersect_point.c\
 		   intersect_shadow.c\
+		   intersect_light.c\
 		   main.c\
 		   normalize.c\
 		   scan_scene.c\

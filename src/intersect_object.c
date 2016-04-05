@@ -1,7 +1,7 @@
 #include "RT.h"
 #include <stdlib.h>
 
-t_scene	*intersect_object(t_ray *ray, t_scene *scene)
+t_scene	*intersect_object(t_ray *ray, t_scene *scene, t_coord *point)
 {
 	float	t;
 	float	t_tmp;
@@ -45,7 +45,12 @@ t_scene	*intersect_object(t_ray *ray, t_scene *scene)
 		scene = scene->next;
 	}
 	if (obj != NULL)
-		if (intersect_shadow(t, begin, ray) == 1)
-			obj->color = 0xF0F0F0;
+	{
+		//if (intersect_shadow(t, begin, ray) == 1)
+		//	obj->color = 0xF0F0F0;
+		point->x = 0 + t * ray->d.x * 0.99995;
+		point->y = 0 + t * ray->d.y * 0.99995;
+		point->z = 0 + t * ray->d.z * 0.99995;
+	}
 	return (obj);
 }

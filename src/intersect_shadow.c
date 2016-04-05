@@ -11,7 +11,7 @@ int	intersect_shadow(float t, t_scene *scene, t_ray *ray)
 	intersect_pt.x = ray->o.x + t * ray->d.x;
 	intersect_pt.y = ray->o.y + t * ray->d.y;
 	intersect_pt.z = ray->o.z + t * ray->d.z;
-	init_coord(&shadow.o, 0, 0, -30);
+	init_coord(&shadow.o, 0, 0, -5);
 	init_vec3(&(shadow.d), shadow.o.x - intersect_pt.x, shadow.o.y - intersect_pt.y, shadow.o.z - intersect_pt.z);
 	t_tmp = -1;
 	while (scene != NULL)

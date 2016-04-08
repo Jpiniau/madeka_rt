@@ -15,7 +15,7 @@ void	scan_scene(t_env *env, t_scene *scene)
 
 	(void) env;
 	x = 0;
-	init_coord(&(light.center), -40, 5, -5);
+	init_coord(&(light.center), 0, 20, -19);
 
 	t_scene *begin;
  	begin = scene;
@@ -38,10 +38,11 @@ void	scan_scene(t_env *env, t_scene *scene)
 			{
 		//		ft_putnbr(obj->type);
 				init_shadow_ray(&ray, light.center, point);
-				if (intersect_object(&ray, scene, &tmp))
+				if (intersect_object(&ray, scene, &tmp) != NULL)
 					ft_pixel_to_img(env, x, y, 0x000000);
 				else
 					ft_pixel_to_img(env, x, y, intersect_light(point, &ray, obj, light));
+					//ft_pixel_to_img(env, x, y, obj->color);
 			}
 			else
 				ft_pixel_to_img(env, x, y, 0);

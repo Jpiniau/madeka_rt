@@ -6,13 +6,13 @@
 /*   By: mdeken <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/28 16:29:58 by mdeken            #+#    #+#             */
-/*   Updated: 2015/02/28 16:51:50 by mdeken           ###   ########.fr       */
+/*   Updated: 2016/04/14 19:31:54 by jpiniau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_pow(int x, int y)
+float	ft_pow(float x, int y)
 {
 	int	result;
 	int	i;

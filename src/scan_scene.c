@@ -3,6 +3,25 @@
 
 #include <stdio.h>
 
+static int	rgb_int(int r, int g, int b)
+{
+	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+}
+
+static int ambient_color(int color)
+{
+	int	rgb[3];
+
+	rgb[2] = color & 255;
+	rgb[1] = (color>>8) & 255;
+	rgb[0] = (color>>16) & 255;
+
+	rgb[0] *= 0.2;
+	rgb[1] *= 0.2;
+	rgb[2] *= 0.2;
+	return (rgb_int(rgb[0], rgb[1], rgb[2]));
+}
+
 void	scan_scene(t_env *env, t_scene *scene)
 {
 	int			x;
@@ -11,17 +30,18 @@ void	scan_scene(t_env *env, t_scene *scene)
 	t_coord		tmp;
 	t_light		light;
 	t_ray		ray;
+	t_ray		ray2;
 	t_scene		*obj;
 
 	(void) env;
 	x = 0;
-	init_coord(&(light.center), 0, 20, -19);
+	init_coord(&(light.center), 2, 5, -15);
 
 	t_scene *begin;
- 	begin = scene;
- 	while (scene != NULL)
+	begin = scene;
+	while (scene != NULL)
 	{
-	//	circle = scene->object;
+		//	circle = scene->object;
 		printf("%d\n", scene->type);
 		scene = scene->next;
 	}
@@ -36,13 +56,13 @@ void	scan_scene(t_env *env, t_scene *scene)
 			obj = intersect_object(&ray, scene, &point);
 			if (obj != NULL)
 			{
-		//		ft_putnbr(obj->type);
-				init_shadow_ray(&ray, light.center, point);
-				if (intersect_object(&ray, scene, &tmp) != NULL)
-					ft_pixel_to_img(env, x, y, 0x000000);
+				//		ft_putnbr(obj->type);
+				init_shadow_ray(&ray2, light.center, point);
+				if (intersect_object(&ray2, scene, &tmp) != NULL)
+					ft_pixel_to_img(env, x, y, ambient_color(obj->color));
 				else
 					ft_pixel_to_img(env, x, y, intersect_light(point, &ray, obj, light));
-					//ft_pixel_to_img(env, x, y, obj->color);
+				//ft_pixel_to_img(env, x, y, obj->color);
 			}
 			else
 				ft_pixel_to_img(env, x, y, 0);

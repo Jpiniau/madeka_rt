@@ -6,7 +6,7 @@
 /*   By: mdeken <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 12:48:13 by mdeken            #+#    #+#             */
-/*   Updated: 2015/12/09 12:35:06 by mdeken           ###   ########.fr       */
+/*   Updated: 2016/04/14 19:31:37 by jpiniau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void				ft_lstaddback(t_list **begin, t_list *new);
 void				ft_lstclrone(t_list **alst);
 int					ft_strcchr(const char *str, char c);
 void				ft_switch(int *a, int *b);
-int					ft_pow(int x, int y);
+float					ft_pow(float x, int y);
 int					ft_strfirst(const char *str, int (*f)(int c));
 double				ft_sqrt(double x);
 int					get_next_line(int const fd, char **line);

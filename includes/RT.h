@@ -2,6 +2,7 @@
 # define RT_H
 
 #include <mlx.h>
+#include "libft.h"
 
 # define	WIDTH	800
 # define	HEIGHT	640

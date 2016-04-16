@@ -35,7 +35,7 @@ void	scan_scene(t_env *env, t_scene *scene)
 
 	(void) env;
 	x = 0;
-	init_coord(&(light.center), 2, 5, -15);
+	init_coord(&(light.center), 0, 7, -20);
 
 	t_scene *begin;
 	begin = scene;

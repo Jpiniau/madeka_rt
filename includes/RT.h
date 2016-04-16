@@ -55,6 +55,7 @@ typedef struct	s_plane
 typedef struct	s_cylinder
 {
 	t_coord		center;
+	t_vec3		d;
 	t_vec3		n;
 	float		r;
 }				t_cylinder;

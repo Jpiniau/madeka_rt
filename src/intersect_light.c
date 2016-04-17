@@ -34,6 +34,51 @@ static t_vec3	vecsvec(t_vec3 a, t_vec3 b)
    }
    */
 
+void			get_cylinder_normal(t_vec3 *normal, t_cylinder *cylinder, t_coord *point)
+{
+	t_vec3	v;
+	t_vec3	project;
+	float	dot;
+	t_vec3	n;
+
+	n = cylinder->d;
+	//	if (vect_norm(&n) - 1 > 0.05)
+	//		normalize_vector(&cylinder->n);
+	v.x = point->x - cylinder->center.x;
+	v.y = point->y - cylinder->center.y;
+	v.z = point->z - cylinder->center.z;
+	dot = dot_product(&v, &cylinder->n);
+	project.x = dot * cylinder->d.x;
+	project.y = dot * cylinder->d.y;
+	project.z = dot * cylinder->d.z;
+	normal->x = v.x - project.x;
+	normal->y = v.y - project.y;
+	normal->z = v.z - project.z;
+	normalize(normal);
+}
+
+void		get_cone_normal(t_vec3 *normal, t_cone *cone,	t_coord *point)
+{
+	t_vec3	v;
+	t_vec3	project;
+	float	dot;
+	t_vec3	n;
+
+	n = cone->n;
+//	if (vect_norm(&n) - 1 > 0.05)
+//		normalize_vector(&cone->normal);
+	v.x = point->x - cone->center.x;
+	v.y = point->y - cone->center.y;
+	v.z = point->z - cone->center.z;
+	dot = dot_product(&v, &cone->n);
+	project.x = dot * cone->n.x;
+	project.y = dot * cone->n.y;
+	project.z = dot * cone->n.z;
+	normal->x = v.x - project.x;
+	normal->y = v.y - project.y;
+	normal->z = v.z - project.z;
+	normalize(normal);
+}
 static t_vec3	vecmf(t_vec3 a, float b)
 {
 	t_vec3	result;
@@ -54,7 +99,7 @@ static float	reflect(t_coord point, t_ray *ray, t_vec3 n, t_light light)
 	t_vec3	l;
 	t_vec3	tmp;
 	float	refl;
-	
+
 	l.x = light.center.x - point.x;
 	l.y = light.center.y - point.y;
 	l.z = light.center.z - point.z;
@@ -87,6 +132,8 @@ int		intersect_light(t_coord point, t_ray *ray, t_scene *obj, t_light light)
 	t_circle	*circle;
 	t_plane		*plane;
 	t_cylinder	*cylinder;
+	t_cone		*cone;
+	t_vec3		normal;
 
 	//	rgb = int_rgb(obj->color);
 	rgb[2] = obj->color & 255;
@@ -120,14 +167,16 @@ int		intersect_light(t_coord point, t_ray *ray, t_scene *obj, t_light light)
 	else if (obj->type == CYLINDER)
 	{
 		cylinder = obj->object;
-		dif = dot_product(&dis, &cylinder->n);
-		refl = reflect(point, ray, cylinder->n, light);
+		get_cylinder_normal(&normal, cylinder, &point);
+		dif = dot_product(&dis, &normal);
+		refl = reflect(point, ray, normal, light);
 	}
 	else if (obj->type == CONE)
 	{
 		cone = obj->object;
-		dif = dot_product(&dis, &cone->n);
-		refl = reflect(point, ray, cone->n, light);
+		get_cone_normal(&normal, cone, &point);
+		dif = dot_product(&dis, &normal);
+		refl = reflect(point, ray, normal, light);
 	}
 	else
 		return (obj->color);

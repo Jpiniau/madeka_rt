@@ -33,7 +33,7 @@ static t_vec3	vecsvec(t_vec3 a, t_vec3 b)
    return (result);
    }
    */
-
+/*
 void			get_cylinder_normal(t_vec3 *normal, t_cylinder *cylinder, t_coord *point)
 {
 	t_vec3	v;
@@ -79,6 +79,7 @@ void		get_cone_normal(t_vec3 *normal, t_cone *cone,	t_coord *point)
 	normal->z = v.z - project.z;
 	normalize(normal);
 }
+*/
 static t_vec3	vecmf(t_vec3 a, float b)
 {
 	t_vec3	result;
@@ -131,8 +132,6 @@ int		intersect_light(t_coord point, t_ray *ray, t_scene *obj, t_light light)
 	t_vec3		n;
 	t_circle	*circle;
 	t_plane		*plane;
-	t_cylinder	*cylinder;
-	t_cone		*cone;
 	t_vec3		normal;
 
 	//	rgb = int_rgb(obj->color);
@@ -166,15 +165,13 @@ int		intersect_light(t_coord point, t_ray *ray, t_scene *obj, t_light light)
 	}
 	else if (obj->type == CYLINDER)
 	{
-		cylinder = obj->object;
-		get_cylinder_normal(&normal, cylinder, &point);
+		get_normal($normal, obj, &point)
 		dif = dot_product(&dis, &normal);
 		refl = reflect(point, ray, normal, light);
 	}
 	else if (obj->type == CONE)
 	{
-		cone = obj->object;
-		get_cone_normal(&normal, cone, &point);
+		get_normal($normal, obj, &point)
 		dif = dot_product(&dis, &normal);
 		refl = reflect(point, ray, normal, light);
 	}

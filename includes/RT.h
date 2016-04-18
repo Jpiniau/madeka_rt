@@ -6,6 +6,7 @@
 
 # define	WIDTH	800
 # define	HEIGHT	640
+# define	AMB		0.2
 
 enum	e_object{CIRCLE, PLANE, CYLINDER, CONE};
 
@@ -103,12 +104,13 @@ float			intersect_cylinder(t_ray *ray, t_cylinder *cylinder);
 float			intersect_cone(t_ray *ray, t_cone *cone);
 t_scene			*intersect_object(t_ray *ray, t_scene *scene, t_coord *point);
 float			intersect_plane(t_ray *ray, t_plane *plane);
-int				intersect_shadow(float t, t_scene *scene, t_ray *ray);
+t_scene			*intersect_shadow(t_ray *ray, t_scene *scene, t_light *light);
 int				intersect_light(t_coord point, t_ray *ray, t_scene *obj, t_light light);
 float			intersect_point(float a, float b, float delta);
 void			normalize(t_vec3 *a);
 void			scan_scene(t_env *env, t_scene *scene);
 float			sin2(float x);
 float			tan2(float x);
+int				get_normal(t_vec3 *normal, t_scene *obj, t_coord *point);
 
 #endif

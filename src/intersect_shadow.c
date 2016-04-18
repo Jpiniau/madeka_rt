@@ -1,32 +1,53 @@
 #include "RT.h"
 #include <stdlib.h>
 
-#include "libft.h"
-int	intersect_shadow(float t, t_scene *scene, t_ray *ray)
+t_scene	*intersect_shadow(t_ray *ray, t_scene *scene, t_light *light)
 {
-	t_coord	intersect_pt;
-	t_ray	shadow;
+	float	t;
 	float	t_tmp;
+	t_scene	*begin;
+	t_scene	*obj;
 
-	intersect_pt.x = ray->o.x + t * ray->d.x;
-	intersect_pt.y = ray->o.y + t * ray->d.y;
-	intersect_pt.z = ray->o.z + t * ray->d.z;
-	init_coord(&shadow.o, 0, 0, -5);
-	init_vec3(&(shadow.d), shadow.o.x - intersect_pt.x, shadow.o.y - intersect_pt.y, shadow.o.z - intersect_pt.z);
-	t_tmp = -1;
+	obj = NULL;
+	if (ray->d.x > 0)
+		t = (light->center.x - ray->o.x) / ray->d.x;
+	else if (ray->d.y > 0)
+		t = (light->center.y - ray->o.y) / ray->d.y;
+	else if (ray->d.z > 0)
+		t = (light->center.z - ray->o.z) / ray->d.z;
+	begin = scene;
 	while (scene != NULL)
 	{
 		if (scene->type == CIRCLE)
-			t_tmp = intersect_circle(&shadow, scene->object);
-		else if (scene->type == PLANE)
-			t_tmp = intersect_plane(&shadow, scene->object);
-		else if (scene->type == CYLINDER)
-			t_tmp = intersect_cylinder(&shadow, scene->object);
-		if (t_tmp > 0)
 		{
-			return (1);
+			t_tmp = intersect_circle(ray, scene->object);
+		}
+		else if (scene->type == PLANE)
+		{
+			t_tmp = intersect_plane(ray, scene->object);
+		}
+		else if (scene->type == CYLINDER)
+		{
+			t_tmp = intersect_cylinder(ray, scene->object);
+		}
+		else if (scene->type == CONE)
+		{
+			t_tmp = intersect_cone(ray, scene->object);
+		}
+		if (obj == NULL && t_tmp > 0 && t_tmp < t)
+		{
+			t = t_tmp;
+			obj = scene;
+		}
+		else if (t_tmp > 0 && t_tmp < t)
+		{
+			if (t > t_tmp)
+			{
+				t = t_tmp;
+				obj = scene;
+			}
 		}
 		scene = scene->next;
 	}
-	return (0);
+	return (obj);
 }

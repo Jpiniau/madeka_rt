@@ -17,7 +17,7 @@ void	init_scene(t_scene **scene)
 	init_plane(scene, coord, v, 0x00FF66);
 	
 	init_coord(&coord, -5, 4, -21);
-//	init_circle(scene, coord, 0xFFFFFF, 4);
+	init_circle(scene, coord, 0xFFFFFF, 4);
 
 	init_coord(&coord, 0, 4, -21);
 	init_circle(scene, coord, 0xFF0000, 2);

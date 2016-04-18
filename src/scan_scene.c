@@ -27,7 +27,6 @@ void	scan_scene(t_env *env, t_scene *scene)
 	int			x;
 	int			y;
 	t_coord		point;
-	t_coord		tmp;
 	t_light		light;
 	t_ray		ray;
 	t_ray		ray2;
@@ -58,7 +57,7 @@ void	scan_scene(t_env *env, t_scene *scene)
 			{
 				//		ft_putnbr(obj->type);
 				init_shadow_ray(&ray2, light.center, point);
-				if (intersect_object(&ray2, scene, &tmp) != NULL)
+				if (intersect_shadow(&ray2, scene, &light) != NULL)
 					ft_pixel_to_img(env, x, y, ambient_color(obj->color));
 				else
 					ft_pixel_to_img(env, x, y, intersect_light(point, &ray, obj, light));

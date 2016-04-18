@@ -29,7 +29,8 @@ SRC_FILE = cos2.c\
 		   normalize.c\
 		   scan_scene.c\
 		   sin2.c\
-		   tan2.c
+		   tan2.c\
+		   get_normal.c
 
 SRC = $(addprefix $(SRC_REP)/,$(SRC_FILE))
 

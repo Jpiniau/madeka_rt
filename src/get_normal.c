@@ -1,3 +1,5 @@
+#include "RT.h"
+
 static void		get_cylinder_normal(t_vec3 *normal, t_cylinder *cylinder, t_coord *point)
 {
 	t_vec3	v;
@@ -40,22 +42,22 @@ static void		get_cone_normal(t_vec3 *normal, t_cone *cone, t_coord *point)
 	normalize(normal);
 }
 
-void	get_normal(t_vec3 *normal, t_scene *obj, t_coord *point)
+int			get_normal(t_vec3 *normal, t_scene *obj, t_coord *point)
 {
 	t_cone		*circle;
 	t_cone		*plane;
 	t_cone		*cone;
 	t_cylinder	*cylinder;
 
-	if (obj->type == CODE)
+	if (obj->type == CONE)
 	{
 		cone = obj->object;
 		get_cone_normal(normal, cone, point);
 	}
 	else if (obj->type == CYLINDER)
 	{
-		cylinde = obj->object;
-		get_cone_normal(normal, cylinder, point);
+		cylinder = obj->object;
+		get_cylinder_normal(normal, cylinder, point);
 	}
 	else if (obj->type == PLANE)
 	{
@@ -63,13 +65,17 @@ void	get_normal(t_vec3 *normal, t_scene *obj, t_coord *point)
 		normal->x =  plane->n.x;
 		normal->y =  plane->n.y;
 		normal->z =  plane->n.z;
+		normalize(normal);
 	}
 	else if (obj->type == CIRCLE)
 	{
 		circle = obj->object;
-		normal->x =  circle->center.x;
-		normal->y =  circle->center.y;
-		normal->z =  circle->center.z;
-
+		normal->x =  point->x - circle->center.x;
+		normal->y =  point->y - circle->center.y;
+		normal->z =  point->z - circle->center.z;
+		normalize(normal);
 	}
+	else
+		return (1);
+	return (0);
 }
